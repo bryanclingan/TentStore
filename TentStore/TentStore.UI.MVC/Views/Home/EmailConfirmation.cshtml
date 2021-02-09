@@ -1,0 +1,21 @@
+﻿@model TentStore.UI.MVC.Models.ContactViewModel
+
+@{
+    ViewBag.Title = "EmailConfirmation";
+}
+
+
+
+<h1>Message Sent</h1>
+
+<h3>The following message was sent to me.</h3>
+<p>
+    Name: @Model.Name <br />
+    Email: @Model.Email <br />
+    Subject: @Model.Subject <br />
+    Message: <br />
+    @Model.Message
+
+
+
+</p>
