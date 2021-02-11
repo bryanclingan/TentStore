@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.1340
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TentStore.UI.MVC", "TentStore.UI.MVC\TentStore.UI.MVC.csproj", "{74C937E6-5AF6-4EFC-9D26-E736962A50AF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TentStore.DATA.EF", "TentStore.DATA.EF\TentStore.DATA.EF.csproj", "{634FDF9F-8E91-4EEC-9891-B9B6746C1606}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{74C937E6-5AF6-4EFC-9D26-E736962A50AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{74C937E6-5AF6-4EFC-9D26-E736962A50AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{74C937E6-5AF6-4EFC-9D26-E736962A50AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{634FDF9F-8E91-4EEC-9891-B9B6746C1606}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{634FDF9F-8E91-4EEC-9891-B9B6746C1606}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{634FDF9F-8E91-4EEC-9891-B9B6746C1606}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{634FDF9F-8E91-4EEC-9891-B9B6746C1606}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

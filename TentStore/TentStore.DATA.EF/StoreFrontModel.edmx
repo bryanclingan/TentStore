@@ -1,0 +1,713 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="StoreFrontModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Brand">
+          <Key>
+            <PropertyRef Name="BrandID" />
+          </Key>
+          <Property Name="BrandID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BrandName" Type="varchar" MaxLength="25" />
+        </EntityType>
+        <EntityType Name="Capacity">
+          <Key>
+            <PropertyRef Name="CapacityID" />
+          </Key>
+          <Property Name="CapacityID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Capacity" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="DeptID" />
+          </Key>
+          <Property Name="DeptID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DeptName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Dimensions">
+          <Key>
+            <PropertyRef Name="DimensionID" />
+          </Key>
+          <Property Name="DimensionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DimensionRange" Type="varchar" MaxLength="25" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Employees">
+          <Key>
+            <PropertyRef Name="EmpID" />
+          </Key>
+          <Property Name="EmpID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Position" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ReportsTo" Type="int" />
+          <Property Name="DeptID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Manufacturer">
+          <Key>
+            <PropertyRef Name="ManufacturerID" />
+          </Key>
+          <Property Name="ManufacturerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ManufacturerName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="City" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="State" Type="char" MaxLength="2" />
+          <Property Name="Country" Type="varchar" MaxLength="25" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PoleMaterial">
+          <Key>
+            <PropertyRef Name="PoleMaterialID" />
+          </Key>
+          <Property Name="PoleMaterialID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PoleMaterial" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Season">
+          <Key>
+            <PropertyRef Name="SeasonID" />
+          </Key>
+          <Property Name="SeasonID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Season" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StatusID">
+          <Key>
+            <PropertyRef Name="StatusID" />
+          </Key>
+          <Property Name="StatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TentMaterial">
+          <Key>
+            <PropertyRef Name="TentMaterialID" />
+          </Key>
+          <Property Name="TentMaterialID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TentMaterial" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tents">
+          <Key>
+            <PropertyRef Name="TentID" />
+          </Key>
+          <Property Name="TentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="BrandID" Type="int" Nullable="false" />
+          <Property Name="StatusID" Type="int" Nullable="false" />
+          <Property Name="ManufacturerID" Type="int" Nullable="false" />
+          <Property Name="DimensionsID" Type="int" Nullable="false" />
+          <Property Name="CapacityID" Type="int" Nullable="false" />
+          <Property Name="TentMaterialID" Type="int" Nullable="false" />
+          <Property Name="PoleMaterialID" Type="int" Nullable="false" />
+          <Property Name="Price" Type="money" Nullable="false" />
+          <Property Name="SeasonID" Type="int" Nullable="false" />
+          <Property Name="Weight" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="isWaterProof" Type="bit" Nullable="false" />
+          <Property Name="isDiscontinued" Type="bit" Nullable="false" />
+          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="ImageURL" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <Association Name="FK_Employees_Department">
+          <End Role="Department" Type="Self.Department" Multiplicity="1" />
+          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="DeptID" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="DeptID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employees_Employees">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+          <End Role="Employees1" Type="Self.Employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="EmpID" />
+            </Principal>
+            <Dependent Role="Employees1">
+              <PropertyRef Name="ReportsTo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tents_Brand">
+          <End Role="Brand" Type="Self.Brand" Multiplicity="1" />
+          <End Role="Tents" Type="Self.Tents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Brand">
+              <PropertyRef Name="BrandID" />
+            </Principal>
+            <Dependent Role="Tents">
+              <PropertyRef Name="BrandID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tents_Capacity">
+          <End Role="Capacity" Type="Self.Capacity" Multiplicity="1" />
+          <End Role="Tents" Type="Self.Tents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Capacity">
+              <PropertyRef Name="CapacityID" />
+            </Principal>
+            <Dependent Role="Tents">
+              <PropertyRef Name="CapacityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tents_Dimensions">
+          <End Role="Dimensions" Type="Self.Dimensions" Multiplicity="1" />
+          <End Role="Tents" Type="Self.Tents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dimensions">
+              <PropertyRef Name="DimensionID" />
+            </Principal>
+            <Dependent Role="Tents">
+              <PropertyRef Name="DimensionsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tents_Manufacturer">
+          <End Role="Manufacturer" Type="Self.Manufacturer" Multiplicity="1" />
+          <End Role="Tents" Type="Self.Tents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturer">
+              <PropertyRef Name="ManufacturerID" />
+            </Principal>
+            <Dependent Role="Tents">
+              <PropertyRef Name="ManufacturerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tents_PoleMaterial">
+          <End Role="PoleMaterial" Type="Self.PoleMaterial" Multiplicity="1" />
+          <End Role="Tents" Type="Self.Tents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PoleMaterial">
+              <PropertyRef Name="PoleMaterialID" />
+            </Principal>
+            <Dependent Role="Tents">
+              <PropertyRef Name="PoleMaterialID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tents_Season">
+          <End Role="Season" Type="Self.Season" Multiplicity="1" />
+          <End Role="Tents" Type="Self.Tents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Season">
+              <PropertyRef Name="SeasonID" />
+            </Principal>
+            <Dependent Role="Tents">
+              <PropertyRef Name="SeasonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tents_StatusID">
+          <End Role="StatusID" Type="Self.StatusID" Multiplicity="1" />
+          <End Role="Tents" Type="Self.Tents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StatusID">
+              <PropertyRef Name="StatusID" />
+            </Principal>
+            <Dependent Role="Tents">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tents_TentMaterial">
+          <End Role="TentMaterial" Type="Self.TentMaterial" Multiplicity="1" />
+          <End Role="Tents" Type="Self.Tents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TentMaterial">
+              <PropertyRef Name="TentMaterialID" />
+            </Principal>
+            <Dependent Role="Tents">
+              <PropertyRef Name="TentMaterialID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="StoreFrontModelStoreContainer">
+          <EntitySet Name="Brand" EntityType="Self.Brand" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Capacity" EntityType="Self.Capacity" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Dimensions" EntityType="Self.Dimensions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Manufacturer" EntityType="Self.Manufacturer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PoleMaterial" EntityType="Self.PoleMaterial" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Season" EntityType="Self.Season" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StatusID" EntityType="Self.StatusID" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TentMaterial" EntityType="Self.TentMaterial" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tents" EntityType="Self.Tents" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Employees_Department" Association="Self.FK_Employees_Department">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employees_Employees" Association="Self.FK_Employees_Employees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Employees1" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tents_Brand" Association="Self.FK_Tents_Brand">
+            <End Role="Brand" EntitySet="Brand" />
+            <End Role="Tents" EntitySet="Tents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tents_Capacity" Association="Self.FK_Tents_Capacity">
+            <End Role="Capacity" EntitySet="Capacity" />
+            <End Role="Tents" EntitySet="Tents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tents_Dimensions" Association="Self.FK_Tents_Dimensions">
+            <End Role="Dimensions" EntitySet="Dimensions" />
+            <End Role="Tents" EntitySet="Tents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tents_Manufacturer" Association="Self.FK_Tents_Manufacturer">
+            <End Role="Manufacturer" EntitySet="Manufacturer" />
+            <End Role="Tents" EntitySet="Tents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tents_PoleMaterial" Association="Self.FK_Tents_PoleMaterial">
+            <End Role="PoleMaterial" EntitySet="PoleMaterial" />
+            <End Role="Tents" EntitySet="Tents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tents_Season" Association="Self.FK_Tents_Season">
+            <End Role="Season" EntitySet="Season" />
+            <End Role="Tents" EntitySet="Tents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tents_StatusID" Association="Self.FK_Tents_StatusID">
+            <End Role="StatusID" EntitySet="StatusID" />
+            <End Role="Tents" EntitySet="Tents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tents_TentMaterial" Association="Self.FK_Tents_TentMaterial">
+            <End Role="TentMaterial" EntitySet="TentMaterial" />
+            <End Role="Tents" EntitySet="Tents" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="StoreFrontModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Brand">
+          <Key>
+            <PropertyRef Name="BrandID" />
+          </Key>
+          <Property Name="BrandID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BrandName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Tents" Relationship="Self.FK_Tents_Brand" FromRole="Brand" ToRole="Tents" />
+        </EntityType>
+        <EntityType Name="Capacity">
+          <Key>
+            <PropertyRef Name="CapacityID" />
+          </Key>
+          <Property Name="CapacityID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Capacity1" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Tents" Relationship="Self.FK_Tents_Capacity" FromRole="Capacity" ToRole="Tents" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="DeptID" />
+          </Key>
+          <Property Name="DeptID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DeptName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_Employees_Department" FromRole="Department" ToRole="Employees" />
+        </EntityType>
+        <EntityType Name="Dimension">
+          <Key>
+            <PropertyRef Name="DimensionID" />
+          </Key>
+          <Property Name="DimensionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DimensionRange" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Tents" Relationship="Self.FK_Tents_Dimensions" FromRole="Dimensions" ToRole="Tents" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmpID" />
+          </Key>
+          <Property Name="EmpID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Position" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ReportsTo" Type="Int32" />
+          <Property Name="DeptID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Department" Relationship="Self.FK_Employees_Department" FromRole="Employees" ToRole="Department" />
+          <NavigationProperty Name="Employees1" Relationship="Self.FK_Employees_Employees" FromRole="Employees" ToRole="Employees1" />
+          <NavigationProperty Name="Employee1" Relationship="Self.FK_Employees_Employees" FromRole="Employees1" ToRole="Employees" />
+        </EntityType>
+        <EntityType Name="Manufacturer">
+          <Key>
+            <PropertyRef Name="ManufacturerID" />
+          </Key>
+          <Property Name="ManufacturerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ManufacturerName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="City" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="State" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="Country" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Tents" Relationship="Self.FK_Tents_Manufacturer" FromRole="Manufacturer" ToRole="Tents" />
+        </EntityType>
+        <EntityType Name="PoleMaterial">
+          <Key>
+            <PropertyRef Name="PoleMaterialID" />
+          </Key>
+          <Property Name="PoleMaterialID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PoleMaterial1" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Tents" Relationship="Self.FK_Tents_PoleMaterial" FromRole="PoleMaterial" ToRole="Tents" />
+        </EntityType>
+        <EntityType Name="Season">
+          <Key>
+            <PropertyRef Name="SeasonID" />
+          </Key>
+          <Property Name="SeasonID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Season1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Tents" Relationship="Self.FK_Tents_Season" FromRole="Season" ToRole="Tents" />
+        </EntityType>
+        <EntityType Name="StatusID">
+          <Key>
+            <PropertyRef Name="StatusID1" />
+          </Key>
+          <Property Name="StatusID1" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Tents" Relationship="Self.FK_Tents_StatusID" FromRole="StatusID" ToRole="Tents" />
+        </EntityType>
+        <EntityType Name="TentMaterial">
+          <Key>
+            <PropertyRef Name="TentMaterialID" />
+          </Key>
+          <Property Name="TentMaterialID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TentMaterial1" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Tents" Relationship="Self.FK_Tents_TentMaterial" FromRole="TentMaterial" ToRole="Tents" />
+        </EntityType>
+        <EntityType Name="Tent">
+          <Key>
+            <PropertyRef Name="TentID" />
+          </Key>
+          <Property Name="TentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BrandID" Type="Int32" Nullable="false" />
+          <Property Name="StatusID" Type="Int32" Nullable="false" />
+          <Property Name="ManufacturerID" Type="Int32" Nullable="false" />
+          <Property Name="DimensionsID" Type="Int32" Nullable="false" />
+          <Property Name="CapacityID" Type="Int32" Nullable="false" />
+          <Property Name="TentMaterialID" Type="Int32" Nullable="false" />
+          <Property Name="PoleMaterialID" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="SeasonID" Type="Int32" Nullable="false" />
+          <Property Name="Weight" Type="Decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="isWaterProof" Type="Boolean" Nullable="false" />
+          <Property Name="isDiscontinued" Type="Boolean" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ImageURL" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Brand" Relationship="Self.FK_Tents_Brand" FromRole="Tents" ToRole="Brand" />
+          <NavigationProperty Name="Capacity" Relationship="Self.FK_Tents_Capacity" FromRole="Tents" ToRole="Capacity" />
+          <NavigationProperty Name="Dimension" Relationship="Self.FK_Tents_Dimensions" FromRole="Tents" ToRole="Dimensions" />
+          <NavigationProperty Name="Manufacturer" Relationship="Self.FK_Tents_Manufacturer" FromRole="Tents" ToRole="Manufacturer" />
+          <NavigationProperty Name="PoleMaterial" Relationship="Self.FK_Tents_PoleMaterial" FromRole="Tents" ToRole="PoleMaterial" />
+          <NavigationProperty Name="Season" Relationship="Self.FK_Tents_Season" FromRole="Tents" ToRole="Season" />
+          <NavigationProperty Name="StatusID1" Relationship="Self.FK_Tents_StatusID" FromRole="Tents" ToRole="StatusID" />
+          <NavigationProperty Name="TentMaterial" Relationship="Self.FK_Tents_TentMaterial" FromRole="Tents" ToRole="TentMaterial" />
+        </EntityType>
+        <Association Name="FK_Tents_Brand">
+          <End Role="Brand" Type="Self.Brand" Multiplicity="1" />
+          <End Role="Tents" Type="Self.Tent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Brand">
+              <PropertyRef Name="BrandID" />
+            </Principal>
+            <Dependent Role="Tents">
+              <PropertyRef Name="BrandID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tents_Capacity">
+          <End Role="Capacity" Type="Self.Capacity" Multiplicity="1" />
+          <End Role="Tents" Type="Self.Tent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Capacity">
+              <PropertyRef Name="CapacityID" />
+            </Principal>
+            <Dependent Role="Tents">
+              <PropertyRef Name="CapacityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employees_Department">
+          <End Role="Department" Type="Self.Department" Multiplicity="1" />
+          <End Role="Employees" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="DeptID" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="DeptID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tents_Dimensions">
+          <End Role="Dimensions" Type="Self.Dimension" Multiplicity="1" />
+          <End Role="Tents" Type="Self.Tent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dimensions">
+              <PropertyRef Name="DimensionID" />
+            </Principal>
+            <Dependent Role="Tents">
+              <PropertyRef Name="DimensionsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employees_Employees">
+          <End Role="Employees" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="Employees1" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="EmpID" />
+            </Principal>
+            <Dependent Role="Employees1">
+              <PropertyRef Name="ReportsTo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tents_Manufacturer">
+          <End Role="Manufacturer" Type="Self.Manufacturer" Multiplicity="1" />
+          <End Role="Tents" Type="Self.Tent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturer">
+              <PropertyRef Name="ManufacturerID" />
+            </Principal>
+            <Dependent Role="Tents">
+              <PropertyRef Name="ManufacturerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tents_PoleMaterial">
+          <End Role="PoleMaterial" Type="Self.PoleMaterial" Multiplicity="1" />
+          <End Role="Tents" Type="Self.Tent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PoleMaterial">
+              <PropertyRef Name="PoleMaterialID" />
+            </Principal>
+            <Dependent Role="Tents">
+              <PropertyRef Name="PoleMaterialID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tents_Season">
+          <End Role="Season" Type="Self.Season" Multiplicity="1" />
+          <End Role="Tents" Type="Self.Tent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Season">
+              <PropertyRef Name="SeasonID" />
+            </Principal>
+            <Dependent Role="Tents">
+              <PropertyRef Name="SeasonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tents_StatusID">
+          <End Role="StatusID" Type="Self.StatusID" Multiplicity="1" />
+          <End Role="Tents" Type="Self.Tent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StatusID">
+              <PropertyRef Name="StatusID1" />
+            </Principal>
+            <Dependent Role="Tents">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tents_TentMaterial">
+          <End Role="TentMaterial" Type="Self.TentMaterial" Multiplicity="1" />
+          <End Role="Tents" Type="Self.Tent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TentMaterial">
+              <PropertyRef Name="TentMaterialID" />
+            </Principal>
+            <Dependent Role="Tents">
+              <PropertyRef Name="TentMaterialID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="StoreFrontEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Brands" EntityType="Self.Brand" />
+          <EntitySet Name="Capacities" EntityType="Self.Capacity" />
+          <EntitySet Name="Departments" EntityType="Self.Department" />
+          <EntitySet Name="Dimensions" EntityType="Self.Dimension" />
+          <EntitySet Name="Employees" EntityType="Self.Employee" />
+          <EntitySet Name="Manufacturers" EntityType="Self.Manufacturer" />
+          <EntitySet Name="PoleMaterials" EntityType="Self.PoleMaterial" />
+          <EntitySet Name="Seasons" EntityType="Self.Season" />
+          <EntitySet Name="StatusIDs" EntityType="Self.StatusID" />
+          <EntitySet Name="TentMaterials" EntityType="Self.TentMaterial" />
+          <EntitySet Name="Tents" EntityType="Self.Tent" />
+          <AssociationSet Name="FK_Tents_Brand" Association="Self.FK_Tents_Brand">
+            <End Role="Brand" EntitySet="Brands" />
+            <End Role="Tents" EntitySet="Tents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tents_Capacity" Association="Self.FK_Tents_Capacity">
+            <End Role="Capacity" EntitySet="Capacities" />
+            <End Role="Tents" EntitySet="Tents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employees_Department" Association="Self.FK_Employees_Department">
+            <End Role="Department" EntitySet="Departments" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tents_Dimensions" Association="Self.FK_Tents_Dimensions">
+            <End Role="Dimensions" EntitySet="Dimensions" />
+            <End Role="Tents" EntitySet="Tents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employees_Employees" Association="Self.FK_Employees_Employees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Employees1" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tents_Manufacturer" Association="Self.FK_Tents_Manufacturer">
+            <End Role="Manufacturer" EntitySet="Manufacturers" />
+            <End Role="Tents" EntitySet="Tents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tents_PoleMaterial" Association="Self.FK_Tents_PoleMaterial">
+            <End Role="PoleMaterial" EntitySet="PoleMaterials" />
+            <End Role="Tents" EntitySet="Tents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tents_Season" Association="Self.FK_Tents_Season">
+            <End Role="Season" EntitySet="Seasons" />
+            <End Role="Tents" EntitySet="Tents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tents_StatusID" Association="Self.FK_Tents_StatusID">
+            <End Role="StatusID" EntitySet="StatusIDs" />
+            <End Role="Tents" EntitySet="Tents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tents_TentMaterial" Association="Self.FK_Tents_TentMaterial">
+            <End Role="TentMaterial" EntitySet="TentMaterials" />
+            <End Role="Tents" EntitySet="Tents" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="StoreFrontModelStoreContainer" CdmEntityContainer="StoreFrontEntities">
+          <EntitySetMapping Name="Brands">
+            <EntityTypeMapping TypeName="StoreFrontModel.Brand">
+              <MappingFragment StoreEntitySet="Brand">
+                <ScalarProperty Name="BrandID" ColumnName="BrandID" />
+                <ScalarProperty Name="BrandName" ColumnName="BrandName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Capacities">
+            <EntityTypeMapping TypeName="StoreFrontModel.Capacity">
+              <MappingFragment StoreEntitySet="Capacity">
+                <ScalarProperty Name="CapacityID" ColumnName="CapacityID" />
+                <ScalarProperty Name="Capacity1" ColumnName="Capacity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Departments">
+            <EntityTypeMapping TypeName="StoreFrontModel.Department">
+              <MappingFragment StoreEntitySet="Department">
+                <ScalarProperty Name="DeptID" ColumnName="DeptID" />
+                <ScalarProperty Name="DeptName" ColumnName="DeptName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Dimensions">
+            <EntityTypeMapping TypeName="StoreFrontModel.Dimension">
+              <MappingFragment StoreEntitySet="Dimensions">
+                <ScalarProperty Name="DimensionID" ColumnName="DimensionID" />
+                <ScalarProperty Name="DimensionRange" ColumnName="DimensionRange" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="StoreFrontModel.Employee">
+              <MappingFragment StoreEntitySet="Employees">
+                <ScalarProperty Name="EmpID" ColumnName="EmpID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="ReportsTo" ColumnName="ReportsTo" />
+                <ScalarProperty Name="DeptID" ColumnName="DeptID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Manufacturers">
+            <EntityTypeMapping TypeName="StoreFrontModel.Manufacturer">
+              <MappingFragment StoreEntitySet="Manufacturer">
+                <ScalarProperty Name="ManufacturerID" ColumnName="ManufacturerID" />
+                <ScalarProperty Name="ManufacturerName" ColumnName="ManufacturerName" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PoleMaterials">
+            <EntityTypeMapping TypeName="StoreFrontModel.PoleMaterial">
+              <MappingFragment StoreEntitySet="PoleMaterial">
+                <ScalarProperty Name="PoleMaterialID" ColumnName="PoleMaterialID" />
+                <ScalarProperty Name="PoleMaterial1" ColumnName="PoleMaterial" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Seasons">
+            <EntityTypeMapping TypeName="StoreFrontModel.Season">
+              <MappingFragment StoreEntitySet="Season">
+                <ScalarProperty Name="SeasonID" ColumnName="SeasonID" />
+                <ScalarProperty Name="Season1" ColumnName="Season" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StatusIDs">
+            <EntityTypeMapping TypeName="StoreFrontModel.StatusID">
+              <MappingFragment StoreEntitySet="StatusID">
+                <ScalarProperty Name="StatusID1" ColumnName="StatusID" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TentMaterials">
+            <EntityTypeMapping TypeName="StoreFrontModel.TentMaterial">
+              <MappingFragment StoreEntitySet="TentMaterial">
+                <ScalarProperty Name="TentMaterialID" ColumnName="TentMaterialID" />
+                <ScalarProperty Name="TentMaterial1" ColumnName="TentMaterial" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tents">
+            <EntityTypeMapping TypeName="StoreFrontModel.Tent">
+              <MappingFragment StoreEntitySet="Tents">
+                <ScalarProperty Name="TentID" ColumnName="TentID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="BrandID" ColumnName="BrandID" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="ManufacturerID" ColumnName="ManufacturerID" />
+                <ScalarProperty Name="DimensionsID" ColumnName="DimensionsID" />
+                <ScalarProperty Name="CapacityID" ColumnName="CapacityID" />
+                <ScalarProperty Name="TentMaterialID" ColumnName="TentMaterialID" />
+                <ScalarProperty Name="PoleMaterialID" ColumnName="PoleMaterialID" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="SeasonID" ColumnName="SeasonID" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="isWaterProof" ColumnName="isWaterProof" />
+                <ScalarProperty Name="isDiscontinued" ColumnName="isDiscontinued" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ImageURL" ColumnName="ImageURL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
