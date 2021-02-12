@@ -1,0 +1,138 @@
+﻿@model TentStore.DATA.EF.Tent
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Tent</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Weight)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Weight)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.isWaterProof)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.isWaterProof)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.isDiscontinued)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.isDiscontinued)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ImageURL)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ImageURL)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Brand.BrandName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Brand.BrandName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Capacity.Capacity1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Capacity.Capacity1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Dimension.DimensionRange)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Dimension.DimensionRange)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Manufacturer.ManufacturerName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Manufacturer.ManufacturerName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PoleMaterial.PoleMaterial1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PoleMaterial.PoleMaterial1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Season.Season1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Season.Season1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StatusID1.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StatusID1.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TentMaterial.TentMaterial1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TentMaterial.TentMaterial1)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.TentID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

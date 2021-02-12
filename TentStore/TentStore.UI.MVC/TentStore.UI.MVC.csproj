@@ -171,6 +171,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RolesAdminController.cs" />
+    <Compile Include="Controllers\TentsController.cs" />
     <Compile Include="Controllers\UserAdminController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -216,6 +217,7 @@
     <Content Include="Content\img\hero-banner-alt.jpg" />
     <Content Include="Content\img\hero-banner.jpg" />
     <Content Include="Content\img\hero-shop.jpg" />
+    <Content Include="Content\img\Placeholder.png" />
     <Content Include="Content\img\product-1.jpg" />
     <Content Include="Content\img\product-10.jpg" />
     <Content Include="Content\img\product-11.jpg" />
@@ -679,6 +681,13 @@
     <Content Include="Views\Home\EmailConfirmation.cshtml" />
     <Content Include="Views\Home\Detail.cshtml" />
     <Content Include="Views\Home\Checkout.cshtml" />
+    <Content Include="Views\Tents\Create.cshtml" />
+    <Content Include="Views\Tents\Delete.cshtml" />
+    <Content Include="Views\Tents\Details.cshtml" />
+    <Content Include="Views\Tents\Edit.cshtml" />
+    <Content Include="Views\Tents\IndexOrgin.cshtml" />
+    <Content Include="Views\Tents\Index.cshtml" />
+    <Content Include="Views\Tents\Details - Copy %282%29.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

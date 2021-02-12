@@ -1,0 +1,117 @@
+﻿@model IEnumerable<TentStore.DATA.EF.Tent>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Weight)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.isWaterProof)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.isDiscontinued)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ImageURL)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Brand.BrandName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Capacity.Capacity1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Dimension.DimensionRange)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Manufacturer.ManufacturerName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PoleMaterial.PoleMaterial1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Season.Season1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StatusID1.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TentMaterial.TentMaterial1)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Weight)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.isWaterProof)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.isDiscontinued)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            <img src="~/Content/img/@item.ImageURL" />
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Brand.BrandName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Capacity.Capacity1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Dimension.DimensionRange)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Manufacturer.ManufacturerName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PoleMaterial.PoleMaterial1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Season.Season1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StatusID1.Status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TentMaterial.TentMaterial1)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.TentID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.TentID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.TentID })
+        </td>
+    </tr>
+}
+
+</table>

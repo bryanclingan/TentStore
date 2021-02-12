@@ -125,20 +125,49 @@ namespace TentStore.DATA.EF
     #region Tent Metadata
     public class TentMetadata
     {
+        [Required(ErrorMessage ="*Required")]
+        [StringLength(50,ErrorMessage ="*50 Characters or less")]
         public string Name { get; set; }
+        [Required(ErrorMessage = "*Required")]
+        [Range(0, int.MaxValue,ErrorMessage = "*Must be Greater than 0")]
         public int BrandID { get; set; }
+        [Required(ErrorMessage = "*Required")]
+        [Range(0, int.MaxValue, ErrorMessage = "*Must be Greater than 0")]
         public int StatusID { get; set; }
+        [Range(0, int.MaxValue, ErrorMessage = "*Must be Greater than 0")]
+        [Required(ErrorMessage = "*Required")]
         public int ManufacturerID { get; set; }
+        [Required(ErrorMessage = "*Required")]
+        [Range(0, int.MaxValue, ErrorMessage = "*Must be Greater than 0")]
         public int DimensionsID { get; set; }
+        [Required(ErrorMessage = "*Required")]
+        [Range(0, int.MaxValue, ErrorMessage = "*Must be Greater than 0")]
         public int CapacityID { get; set; }
+        [Required(ErrorMessage = "*Required")]
+        [Range(0, int.MaxValue, ErrorMessage = "*Must be Greater than 0")]
         public int TentMaterialID { get; set; }
+        [Required(ErrorMessage = "*Required")]
+        [Range(0, int.MaxValue, ErrorMessage = "*Must be Greater than 0")]
         public int PoleMaterialID { get; set; }
+        [Required(ErrorMessage = "*Required")]
+        [Range(0, double.MaxValue, ErrorMessage = "*Must be Greater than 0")]
+        [DisplayFormat(DataFormatString ="{0:c}")]
         public decimal Price { get; set; }
+        [Required(ErrorMessage = "*Required")]
+        [Range(0, int.MaxValue, ErrorMessage = "*Must be Greater than 0")]
         public int SeasonID { get; set; }
+        [Required(ErrorMessage = "*Required")]
+        [Range(0, double.MaxValue, ErrorMessage = "*Must be Greater than 0")]
         public decimal Weight { get; set; }
+        [Required(ErrorMessage = "*Required")]
+        [Display(Name="Waterproof")]
         public bool isWaterProof { get; set; }
+        [Required(ErrorMessage = "*Required")]
+        [Display(Name="Discontinued")]
         public bool isDiscontinued { get; set; }
+        
         public string Description { get; set; }
+        [Display(Name="Image")]
         public string ImageURL { get; set; }
     }
     [MetadataType(typeof(TentMetadata))]
@@ -147,10 +176,12 @@ namespace TentStore.DATA.EF
 
     }
     #endregion 
-    //not done
+    
     #region TentMaterial Metadata
     public class TentMaterialMetadata
     {
+        [Required(ErrorMessage ="*Required")]
+        [StringLength(20,ErrorMessage ="*20 characters or less")]
         public string TentMaterial1 { get; set; }
     }
     [MetadataType(typeof(TentMaterialMetadata))]
@@ -159,10 +190,12 @@ namespace TentStore.DATA.EF
 
     }
     #endregion
-    //not done
+    
     #region Department Metadata
     public class DepartmentMetadata
     {
+        [Required(ErrorMessage ="*Required")]
+        [StringLength(50,ErrorMessage ="50 characters or less")]
         public string DeptName { get; set; }
     }
     [MetadataType(typeof(DepartmentMetadata))]
@@ -171,14 +204,25 @@ namespace TentStore.DATA.EF
 
     }
     #endregion
-    //not done
+    
     #region Employee Metadata
     public class EmployeeMetadata
     {
+        [Required(ErrorMessage ="*Required")]
+        [Display(Name ="First Name")]
+        [StringLength(50,ErrorMessage ="*50 characters or less")]
         public string FirstName { get; set; }
+        [Required(ErrorMessage = "*Required")]
+        [Display(Name = "Last Name")]
+        [StringLength(50, ErrorMessage = "*50 characters or less")]
         public string LastName { get; set; }
+        [Required(ErrorMessage = "*Required")]
+        [StringLength(50, ErrorMessage = "*50 characters or less")]
         public string Position { get; set; }
+        [Range(0, int.MaxValue, ErrorMessage = "*Must be Greater than 0")]
         public Nullable<int> ReportsTo { get; set; }
+        [Required(ErrorMessage = "*Required")]
+        [Range(0, int.MaxValue, ErrorMessage = "*Must be Greater than 0")]
         public int DeptID { get; set; }
     }
     [MetadataType(typeof(EmployeeMetadata))]
@@ -187,5 +231,5 @@ namespace TentStore.DATA.EF
 
     }
     #endregion 
-    //not done
+    
 }
