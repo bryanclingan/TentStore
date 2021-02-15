@@ -165,7 +165,7 @@ namespace TentStore.DATA.EF
         [Required(ErrorMessage = "*Required")]
         [Display(Name="Discontinued")]
         public bool isDiscontinued { get; set; }
-        
+        [DisplayFormat(NullDisplayText ="N/A")]
         public string Description { get; set; }
         [Display(Name="Image")]
         public string ImageURL { get; set; }
