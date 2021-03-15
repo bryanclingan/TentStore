@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<TentStore.DATA.EF.Tent>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Tents";
 }
 
-<h2>Index</h2>
+<h2>@ViewBag.Title</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -26,9 +26,9 @@
         <th>
             @Html.DisplayNameFor(model => model.isDiscontinued)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.Description)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.ImageURL)
         </th>
@@ -76,9 +76,9 @@
         <td>
             @Html.DisplayFor(modelItem => item.isDiscontinued)
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.Description)
-        </td>
+        </td>*@
         <td>
             <img src="~/Content/img/@item.ImageURL" />
         </td>
@@ -108,7 +108,7 @@
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.TentID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.TentID }) |
+            @Html.ActionLink("DetailsOrgin", "Details", new { id=item.TentID }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.TentID })
         </td>
     </tr>

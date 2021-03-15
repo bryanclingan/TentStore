@@ -1,6 +1,14 @@
-﻿@model IEnumerable<TentStore.DATA.EF.Tent>
+﻿@model PagedList.IPagedList<TentStore.DATA.EF.Tent>
+    @using PagedList.Mvc;
 @{
     ViewBag.Title = "Shop";
+
+    TentStore.DATA.EF.StoreFrontEntities sfe = new TentStore.DATA.EF.StoreFrontEntities();
+
+
+    var brandName = from b in sfe.Brands  orderby b.BrandName select b.BrandName;
+    var capacity = from c in sfe.Capacities orderby c.CapacityID select c.Capacity1;
+    var seasion = from s in sfe.Seasons  orderby s.SeasonID select s.Season1;
 }
 
 <section class="py-5 bg-light">
@@ -26,33 +34,49 @@
             <!-- SHOP SIDEBAR-->
             <div class="col-lg-3 order-2 order-lg-1">
                 <h5 class="text-uppercase mb-4">Categories</h5>
-                <div class="py-2 px-4 bg-dark text-white mb-3"><strong class="small text-uppercase font-weight-bold">Fashion &amp; Acc</strong></div>
+
+
+                <div class="py-2 px-4 bg-dark text-white mb-3"><strong class="small text-uppercase font-weight-bold">Brand</strong></div>
+
+
                 <ul class="list-unstyled small text-muted pl-lg-4 font-weight-normal">
-                    <li class="mb-2"><a class="reset-anchor" href="#">Women's T-Shirts</a></li>
-                    <li class="mb-2"><a class="reset-anchor" href="#">Men's T-Shirts</a></li>
-                    <li class="mb-2"><a class="reset-anchor" href="#">Dresses</a></li>
-                    <li class="mb-2"><a class="reset-anchor" href="#">Novelty socks</a></li>
-                    <li class="mb-2"><a class="reset-anchor" href="#">Women's sunglasses</a></li>
-                    <li class="mb-2"><a class="reset-anchor" href="#">Men's sunglasses</a></li>
+                    @foreach (var item in brandName)
+                    {
+                       
+                            <li class="mb-2"><a class="reset-anchor" href="@Url.Action("Index","Tents")?searchFilter=@item">@item</a></li>
+                        
+                        
+                    }
+
+
                 </ul>
-                <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold">Health &amp; Beauty</strong></div>
+
+
+                <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold">Capacity</strong></div>
+
+
                 <ul class="list-unstyled small text-muted pl-lg-4 font-weight-normal">
-                    <li class="mb-2"><a class="reset-anchor" href="#">Shavers</a></li>
-                    <li class="mb-2"><a class="reset-anchor" href="#">bags</a></li>
-                    <li class="mb-2"><a class="reset-anchor" href="#">Cosmetic</a></li>
-                    <li class="mb-2"><a class="reset-anchor" href="#">Nail Art</a></li>
-                    <li class="mb-2"><a class="reset-anchor" href="#">Skin Masks &amp; Peels</a></li>
-                    <li class="mb-2"><a class="reset-anchor" href="#">Korean cosmetics</a></li>
+                    @foreach (var item in capacity)
+                    {
+                        <li class="mb-2"><a class="reset-anchor" href="@Url.Action("Index","Tents")?searchFilter=@item">@item</a></li>
+                    }
+                    
+
                 </ul>
-                <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold">Electronics</strong></div>
+
+                <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold">Season</strong></div>
+
+
                 <ul class="list-unstyled small text-muted pl-lg-4 font-weight-normal mb-5">
-                    <li class="mb-2"><a class="reset-anchor" href="#">Electronics</a></li>
-                    <li class="mb-2"><a class="reset-anchor" href="#">USB Flash drives</a></li>
-                    <li class="mb-2"><a class="reset-anchor" href="#">Headphones</a></li>
-                    <li class="mb-2"><a class="reset-anchor" href="#">Portable speakers</a></li>
-                    <li class="mb-2"><a class="reset-anchor" href="#">Cell Phone bluetooth headsets</a></li>
-                    <li class="mb-2"><a class="reset-anchor" href="#">Keyboards</a></li>
+                    @foreach (var item in seasion)
+                    {
+                        <li class="mb-2"><a class="reset-anchor" href="@Url.Action("Index","Tents")?searchFilter=@item">@item</a></li>
+                    }
+                    
+
                 </ul>
+
+
                 <h6 class="text-uppercase mb-4">Price range</h6>
                 <div class="price-range pt-4 mb-5">
                     <div id="range"></div>
@@ -86,6 +110,8 @@
                     <input class="custom-control-input" id="customCheck6" type="checkbox">
                     <label class="custom-control-label text-small" for="customCheck6">Authorized Seller</label>
                 </div>
+
+
                 <h6 class="text-uppercase mb-3">Buying format</h6>
                 <div class="custom-control custom-radio">
                     <input class="custom-control-input" id="customRadio1" type="radio" name="customRadio">
@@ -127,14 +153,14 @@
                 </div>
                 <div class="row">
 
-
+                    <div>@ViewBag.NoResult</div>
 
                     @foreach (var item in Model)
                     {
                         <div class="col-lg-4 col-sm-6">
                             <div class="product text-center">
                                 <div class="mb-3 position-relative">
-                                    <div class="badge text-white badge-"></div><a class="d-block" href="@Url.Action("Details", new {id=item.TentID })"><img class="img-fluid w-100" src="~/Content/img/@item.ImageURL" alt="..."></a>
+                                    <div class="badge text-white badge-"></div><a class="d-block" href="@Url.Action("Details", new {id=item.TentID })"><img class="img-fluid w-100" src="~/Content/img/@item.ImageURL" style="height:240px" alt="..."></a>
                                     <div class="product-overlay">
                                         <ul class="mb-0 list-inline">
                                             <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" href="#"><i class="far fa-heart"></i></a></li>
@@ -150,14 +176,19 @@
                     }
                 </div>
                 <!-- PAGINATION-->
+                @*@Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchFilter = ViewBag.SearchFilter }, new PagedListRenderOptions {
+               LiElementClasses = new string[] { "page-item" },
+               PageClasses = new string[] { "page-link" }
+           }))*@
                 <nav aria-label="Page navigation example">
-                    <ul class="pagination justify-content-center justify-content-lg-end">
-                        <li class="page-item"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
-                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
-                    </ul>
+
+                    @*<ul class="pagination justify-content-center justify-content-lg-end">
+                <li class="page-item"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+            </ul>*@
                 </nav>
             </div>
         </div>

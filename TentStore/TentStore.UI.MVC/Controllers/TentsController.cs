@@ -7,6 +7,10 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using TentStore.DATA.EF;
+using PagedList;
+using PagedList.Mvc;
+using System.Drawing;
+using MVC3.UI.MVC.Utilities;
 
 namespace TentStore.UI.MVC.Controllers
 {
@@ -15,11 +19,37 @@ namespace TentStore.UI.MVC.Controllers
         private StoreFrontEntities db = new StoreFrontEntities();
 
         // GET: Tents
-        public ActionResult Index()
+        public ActionResult Index(string searchFilter,int page=1)
         {
-            var tents = db.Tents.Include(t => t.Brand).Include(t => t.Capacity).Include(t => t.Dimension).Include(t => t.Manufacturer).Include(t => t.PoleMaterial).Include(t => t.Season).Include(t => t.StatusID1).Include(t => t.TentMaterial);
-            return View(tents.ToList());
+            int pageSize = 6;
+            //ViewBag.NoResults = null;
+            //var tents = db.Tents.Include(t => t.Brand).Include(t => t.Capacity).Include(t => t.Dimension).Include(t => t.Manufacturer).Include(t => t.PoleMaterial).Include(t => t.Season).Include(t => t.StatusID1).Include(t => t.TentMaterial);
+            var tents = db.Tents.OrderBy(t => t.Name).ToList();
+            if (string.IsNullOrEmpty(searchFilter))
+            {
+                return View(tents.ToPagedList(page,pageSize));
+            }
+            else
+            {
+                var filterTents = from t in tents where t.Brand.BrandName.ToLower().Contains(searchFilter.ToLower()) || t.Capacity.Capacity1.ToLower().Contains(searchFilter.ToLower()) || t.Season.Season1.ToLower().Contains(searchFilter.ToLower()) select t;
+                if (filterTents.Count() == 0 )
+                {
+                    ViewBag.NoResults = $"Sorry we have no Results for {searchFilter}";
+                    return View( filterTents.ToPagedList(page, pageSize));
+                }
+                else
+                {
+                    ViewBag.SearchFilter = searchFilter;
+                    return View(filterTents.ToPagedList(page, pageSize));
+
+                }
+                
+
+            }
+            
         }
+
+        
         public ActionResult IndexOrgin()
         {
             var tents = db.Tents.Include(t => t.Brand).Include(t => t.Capacity).Include(t => t.Dimension).Include(t => t.Manufacturer).Include(t => t.PoleMaterial).Include(t => t.Season).Include(t => t.StatusID1).Include(t => t.TentMaterial);
@@ -72,10 +102,14 @@ namespace TentStore.UI.MVC.Controllers
 
                     string ext = imageName.Substring(imageName.LastIndexOf("."));
                     string[] exts = new string[] { ".jpeg", ".jpg", ".png" };
-                    if (exts.Contains(ext.ToLower()))
+                    if (exts.Contains(ext.ToLower())&&(imageURL.ContentLength<=4194304))
                     {
                         imageName = Guid.NewGuid() + ext;
-                        imageURL.SaveAs(Server.MapPath("~/Content/img/"+imageName));
+                        string savepath = Server.MapPath("~/Content/img/");
+                        //imageURL.SaveAs(Server.MapPath("~/Content/img/"+imageName));
+                        Image convertedImage = Image.FromStream(imageURL.InputStream);
+                        int maxImageSize = 500;
+                        ImageService.ResizeImage(savepath, imageName, convertedImage, maxImageSize);
                     }
                     else
                     {
@@ -140,14 +174,20 @@ namespace TentStore.UI.MVC.Controllers
 
                     string ext = imageName.Substring(imageName.LastIndexOf("."));
                     string[] exts = new string[] { ".jpeg", ".jpg", ".png" };
-                    if (exts.Contains(ext.ToLower()))
+                    if (exts.Contains(ext.ToLower()) && (imageURL.ContentLength <= 4194304))
                     {
-                        imageName = Guid.NewGuid() + ext;
-                        imageURL.SaveAs(Server.MapPath("~/Content/img/" + imageName));
-                        string currentImage = Request.Params["ImageURL"];
-                        if (currentImage != "Placeholder.png" && currentImage != null)
+                        imageName = Guid.NewGuid() + ext.ToLower();
+                        //imageURL.SaveAs(Server.MapPath("~/Content/img/" + imageName));
+                        string savepath = Server.MapPath("~/Content/img/");
+                        //string currentImage = Request.Params["ImageURL"];
+                        Image convertedImage = Image.FromStream(imageURL.InputStream);
+                        int maxImageSize = 500;
+                        ImageService.ResizeImage(savepath, imageName, convertedImage, maxImageSize);
+                        if (tent.ImageURL != "Placeholder.png" && tent.ImageURL != null)
                         {
-                            System.IO.File.Delete(Server.MapPath("~/Content/img/" + currentImage));
+                            //System.IO.File.Delete(Server.MapPath("~/Content/img/" + currentImage));
+                            string path = Server.MapPath("~/Content/img/");
+                            ImageService.Delete(path, tent.ImageURL);
                         }
                         tent.ImageURL = imageName;
                     }

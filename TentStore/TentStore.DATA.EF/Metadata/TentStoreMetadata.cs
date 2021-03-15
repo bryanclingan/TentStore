@@ -129,32 +129,32 @@ namespace TentStore.DATA.EF
         [StringLength(50,ErrorMessage ="*50 Characters or less")]
         public string Name { get; set; }
         [Required(ErrorMessage = "*Required")]
-        [Range(0, int.MaxValue,ErrorMessage = "*Must be Greater than 0")]
+        
         public int BrandID { get; set; }
         [Required(ErrorMessage = "*Required")]
-        [Range(0, int.MaxValue, ErrorMessage = "*Must be Greater than 0")]
+        
         public int StatusID { get; set; }
-        [Range(0, int.MaxValue, ErrorMessage = "*Must be Greater than 0")]
+        
         [Required(ErrorMessage = "*Required")]
         public int ManufacturerID { get; set; }
         [Required(ErrorMessage = "*Required")]
-        [Range(0, int.MaxValue, ErrorMessage = "*Must be Greater than 0")]
+        
         public int DimensionsID { get; set; }
         [Required(ErrorMessage = "*Required")]
-        [Range(0, int.MaxValue, ErrorMessage = "*Must be Greater than 0")]
+        
         public int CapacityID { get; set; }
         [Required(ErrorMessage = "*Required")]
-        [Range(0, int.MaxValue, ErrorMessage = "*Must be Greater than 0")]
+        
         public int TentMaterialID { get; set; }
         [Required(ErrorMessage = "*Required")]
-        [Range(0, int.MaxValue, ErrorMessage = "*Must be Greater than 0")]
+        
         public int PoleMaterialID { get; set; }
         [Required(ErrorMessage = "*Required")]
         [Range(0, double.MaxValue, ErrorMessage = "*Must be Greater than 0")]
         [DisplayFormat(DataFormatString ="{0:c}")]
         public decimal Price { get; set; }
         [Required(ErrorMessage = "*Required")]
-        [Range(0, int.MaxValue, ErrorMessage = "*Must be Greater than 0")]
+        
         public int SeasonID { get; set; }
         [Required(ErrorMessage = "*Required")]
         [Range(0, double.MaxValue, ErrorMessage = "*Must be Greater than 0")]

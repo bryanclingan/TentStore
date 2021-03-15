@@ -22,7 +22,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;700&amp;display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Martel+Sans:wght@300;400;800&amp;display=swap">
     <!-- theme stylesheet-->
-    <link rel="stylesheet" href="~/Content/css/style.default.css" id="theme-stylesheet">
+    <link rel="stylesheet" href="~/Content/css/style.violet.css" id="theme-stylesheet">
+    <link href="~/Content/PagedList.css" rel="stylesheet" />
     <!-- Custom stylesheet - for your changes-->
     <link rel="stylesheet" href="~/Content/css/custom.css">
     <!-- Favicon-->
@@ -55,6 +56,27 @@
                                 <a class="nav-link dropdown-toggle" id="pagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
                                 <div class="dropdown-menu mt-3" aria-labelledby="pagesDropdown"><a class="dropdown-item border-0 transition-link" href="@Url.Action("Index","Home")">Homepage</a><a class="dropdown-item border-0 transition-link" href="@Url.Action("Shop","Home")">Category</a><a class="dropdown-item border-0 transition-link" href="@Url.Action("Detail","Home")">Product detail</a><a class="dropdown-item border-0 transition-link" href="@Url.Action("Cart","Home")">Shopping cart</a><a class="dropdown-item border-0 transition-link" href="@Url.Action("Checkout","Home")">Checkout</a></div>
                             </li>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" id="pagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin Menu</a>
+                                    <div class="dropdown-menu mt-3" aria-labelledby="pagesDropdown">
+                                        <a class="dropdown-item border-0 transition-link" href="@Url.Action("Index", "RolesAdmin")">Roles Admin</a>
+                                        <a class="dropdown-item border-0 transition-link" href="@Url.Action("Index", "UsersAdmin")">Users Admin</a>
+                                        <a class="dropdown-item border-0 transition-link" href="@Url.Action("IndexOrgin","Tents")">Tents</a>
+                                        <a class="dropdown-item border-0 transition-link" href="@Url.Action("Index","Brands")">Brands</a>
+                                        <a class="dropdown-item border-0 transition-link" href="@Url.Action("Index","Departments")">Departments</a>
+                                        <a class="dropdown-item border-0 transition-link" href="@Url.Action("Index","Capacities")">Capacity</a>
+                                        <a class="dropdown-item border-0 transition-link" href="@Url.Action("Index","Employees")">Employees</a>
+                                        <a class="dropdown-item border-0 transition-link" href="@Url.Action("Index","Polematerials")">Poles</a>
+                                        <a class="dropdown-item border-0 transition-link" href="@Url.Action("Index","Seasons")">Seasons</a>
+                                        <a class="dropdown-item border-0 transition-link" href="@Url.Action("Index","StatusIDs")">Status</a>
+                                        <a class="dropdown-item border-0 transition-link" href="@Url.Action("Index","TentMaterials")">Tent Materials</a>
+                                        <a class="dropdown-item border-0 transition-link" href="@Url.Action("Index","Manufacturers")">Manufacturer</a>
+                                        <a class="dropdown-item border-0 transition-link" href="@Url.Action("Index","Dimensions")">Dimensions</a>
+                                    </div>
+                                </li>
+                            }
                         </ul>
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item"><a class="nav-link" href="@Url.Action("Cart","Home")"> <i class="fas fa-dolly-flatbed mr-1 text-gray"></i>Cart<small class="text-gray">(2)</small></a></li>
@@ -62,7 +84,6 @@
                             @Html.Partial("_LoginPartial")
 
                         </ul>
-
                     </div>
                 </nav>
             </div>
@@ -121,14 +142,8 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <p class="small text-muted mb-0">&copy; 2020 All rights reserved.</p>
-                            @if (Request.IsAuthenticated && User.IsInRole("Admin"))
-                            {
-                                <ul>
-                                    <li>@Html.ActionLink("RolesAdmin", "Index", "RolesAdmin")</li>
-                                    <li>@Html.ActionLink("UsersAdmin", "Index", "UsersAdmin")</li>
-                                </ul>
-                            }
                             
+
                         </div>
 
 
