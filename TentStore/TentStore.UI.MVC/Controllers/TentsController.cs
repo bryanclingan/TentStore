@@ -11,6 +11,7 @@ using PagedList;
 using PagedList.Mvc;
 using System.Drawing;
 using MVC3.UI.MVC.Utilities;
+using TentStore.UI.MVC.Models;
 
 namespace TentStore.UI.MVC.Controllers
 {
@@ -243,6 +244,54 @@ namespace TentStore.UI.MVC.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        [HttpPost]
+        public ActionResult AddToCart(int qty, int tentID)
+        {
+            
+            Dictionary<int, CartItemViewModel> shoppingCart = null;
+
+            
+            if (Session["cart"] != null)
+            {
+                shoppingCart = (Dictionary<int, CartItemViewModel>)Session["cart"];
+
+            }
+
+           
+            else
+            {
+                shoppingCart = new Dictionary<int, CartItemViewModel>();
+            }
+            
+            Tent product = db.Tents.Where(b => b.TentID == tentID).FirstOrDefault();
+            
+            if (product == null)
+            {
+                return RedirectToAction("Index");
+            }
+            
+            else
+            {
+                
+                CartItemViewModel item = new CartItemViewModel(qty, product);
+                
+                if (shoppingCart.ContainsKey(product.TentID))
+                {
+                    shoppingCart[product.TentID].Qty += qty;
+                }
+                
+                else
+                {
+                    shoppingCart.Add(product.TentID, item);
+                }
+                
+                Session["cart"] = shoppingCart;
+            }
+            
+
+            return RedirectToAction("Index", "ShoppingCart");
         }
     }
 }

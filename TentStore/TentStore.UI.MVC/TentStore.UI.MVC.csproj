@@ -185,6 +185,7 @@
     <Compile Include="Controllers\PoleMaterialsController.cs" />
     <Compile Include="Controllers\RolesAdminController.cs" />
     <Compile Include="Controllers\SeasonsController.cs" />
+    <Compile Include="Controllers\ShoppingCartController.cs" />
     <Compile Include="Controllers\StatusIDsController.cs" />
     <Compile Include="Controllers\TentMaterialsController.cs" />
     <Compile Include="Controllers\TentsController.cs" />
@@ -194,6 +195,7 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminViewModel.cs" />
+    <Compile Include="Models\CartItemViewModel.cs" />
     <Compile Include="Models\ContactViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -756,6 +758,10 @@
     <Content Include="Views\TentMaterials\Details.cshtml" />
     <Content Include="Views\TentMaterials\Edit.cshtml" />
     <Content Include="Views\TentMaterials\Index.cshtml" />
+    <Content Include="Views\ShoppingCart\Index.cshtml" />
+    <Content Include="Views\Brands\AjaxCreate.cshtml" />
+    <Content Include="Views\Brands\BrandDetails.cshtml" />
+    <Content Include="Views\Brands\BrandEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

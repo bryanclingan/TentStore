@@ -114,9 +114,9 @@ namespace TentStore.UI.MVC.Models
         public static void InitializeIdentityForEF(ApplicationDbContext db) {
             var userManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
             var roleManager = HttpContext.Current.GetOwinContext().Get<ApplicationRoleManager>();
-            const string name = "";
-            const string password = "";
-            const string roleName = "";
+            const string name = "admin@example.com";
+            const string password = "Admin@123456";
+            const string roleName = "Admin";
 
             //Create Role Admin if it does not exist
             var role = roleManager.FindByName(roleName);

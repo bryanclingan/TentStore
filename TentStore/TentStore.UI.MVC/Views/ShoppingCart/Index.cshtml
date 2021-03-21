@@ -1,0 +1,110 @@
+﻿@model Dictionary<int, TentStore.UI.MVC.Models.CartItemViewModel>
+@{
+    ViewBag.Title = "Shopping Cart";
+
+    decimal? cartTotal = 0;
+    int totalCountOfItems = 0;
+}
+
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row px-4 px-lg-5 py-lg-4 align-items-center">
+            <div class="col-lg-6">
+                <h1 class="h2 text-uppercase mb-0">Cart</h1>
+            </div>
+            <div class="col-lg-6 text-lg-right">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-lg-end mb-0 px-0">
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Cart</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="py-5">
+    <h2 class="h5 text-uppercase mb-4">Shopping cart</h2>
+    <div class="row">
+        <div class="col-lg-8 mb-4 mb-lg-0">
+            <!-- CART TABLE-->
+            <div class="table-responsive mb-4">
+                <table class="table">
+                    <thead class="bg-light">
+                        <tr>
+                            <th class="border-0" scope="col"> <strong class="text-small text-uppercase">Product</strong></th>
+                            <th class="border-0" scope="col"> <strong class="text-small text-uppercase">Price</strong></th>
+                            <th class="border-0" scope="col"> <strong class="text-small text-uppercase">Quantity</strong></th>
+                            <th class="border-0" scope="col"> <strong class="text-small text-uppercase">Total</strong></th>
+                            <th class="border-0" scope="col"> </th>
+                            <th class="border-0" scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <!--Model represents the dictionary, to get to specific values in the product portion of that collection, we need to access the Value property, then Product, then the property to display-->
+                                    <img src="~/Content/img/@item.Value.Product.ImageURL" alt="book Cover" title="@item.Value.Product.Name" style="height:75px;width:100px"/>
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Value.Product.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Value.Product.Price)
+                                </td>
+                                <td>
+                                    
+                                    @using (Html.BeginForm("UpdateCart", "ShoppingCart", FormMethod.Post))
+                                    {
+                                       
+                                        @Html.Hidden("tentID", item.Value.Product.TentID)
+                                        @Html.TextBox("qty", item.Value.Qty, new { @class = "form-control text-center", style = "max-width:100px;display:inline;" })
+                                        <input type="submit" value="Update" class="btn btn-primary " style="display:inline;width:100px"/>
+                                    }
+                                    @{totalCountOfItems += item.Value.Qty;}
+                                </td>
+                                <td>
+                                    <!--Calculate the line total and display in currency format-->
+                                    @{
+                                        decimal? lineTotal = item.Value.Product.Price * item.Value.Qty;
+                                        <!--Update the CART TOTAL by summing the line total-->
+                                        cartTotal += lineTotal;
+                                    }
+                                    @string.Format($"{lineTotal:c}")
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Delete", "RemoveFromCart", new { id = item.Value.Product.TentID })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <!-- CART NAV-->
+            <div class="bg-light px-4 py-3">
+                <div class="row align-items-center text-center">
+                    <div class="col-md-6 mb-3 mb-md-0 text-md-left"><a class="btn btn-link p-0 text-dark btn-sm" href="@Url.Action("Index","Tents")"><i class="fas fa-long-arrow-alt-left mr-2"> </i>Continue shopping</a></div>
+                    
+                </div>
+            </div>
+        </div>
+        <!-- ORDER TOTAL-->
+        <div class="col-lg-4">
+            <div class="card border-0 rounded-0 p-lg-4 bg-light">
+                <div class="card-body">
+                    <h5 class="text-uppercase mb-4">Cart total</h5>
+                    <ul class="list-unstyled mb-0">
+                        <li class="d-flex align-items-center justify-content-between"><strong class="text-uppercase small font-weight-bold">Subtotal</strong><span class="text-muted small">@string.Format($"{ cartTotal:c}")</span></li>
+                        <li class="border-bottom my-2"></li>
+                        <li class="d-flex align-items-center justify-content-between mb-4"><strong class="text-uppercase small font-weight-bold">Total</strong><span>@string.Format($"{ cartTotal:c}")</span></li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+

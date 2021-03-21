@@ -64,6 +64,17 @@ namespace TentStore.UI.MVC.Models
 
     public class RegisterViewModel
     {
+
+        [Required(ErrorMessage = "First name is required")]
+        [StringLength(25, ErrorMessage = "The first name must be 25 characters or less.")]
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+
+        [Required(ErrorMessage = "Last name is required")]
+        [StringLength(25, ErrorMessage = "The last name must be 25 characters or less.")]
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]

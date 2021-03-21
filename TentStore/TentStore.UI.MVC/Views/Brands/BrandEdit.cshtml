@@ -1,0 +1,65 @@
+﻿@model TentStore.DATA.EF.Brand
+
+@using (Html.BeginForm("","",FormMethod.Post,new { id="BrandEditForm"}))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Brand</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.BrandID)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.BrandName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.BrandName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.BrandName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+    <script>
+    //This is a partial view that is not embedded in the index view like the create was. There is no call to the Html.Partial() like there is for Create. It is part of the view and Partial view drops into that spot
+
+    $("#BrandEditForm").submit(function (e) {
+       
+        e.preventDefault();
+        
+        var formData = $(this).serializeArray();
+        $("#MessageContent").html("<div class='alert alert-info'>Please wait...</div>");
+        $.ajax({
+            url: "@Url.Action("AjaxEdit","Brands")",
+            type: "POST",
+            data: formData,
+            datatype: "json",
+            success: function (data) {
+                
+                $("#MessageContent").html("<div class='alert alert-success'>Your record was updated!</div>");
+                
+                $("#BrandEditForm")[0].reset();
+                
+                $(function () {
+                    var row = "<tr><td>" + data.BrandName + "<td>Refresh to view Links</td></tr>";
+                
+                    $("#Brand-" + data.BrandName).replaceWith(row);
+                });
+                
+                $("#BrandEdit").dialog("close");
+            },
+            error: function (e) {
+                $("#MessageContent").html("<div class='alert alert-warning'>There was an error. Please try again or contact the site administrator.</div>")
+
+            }
+        });
+
+    });
+
+    </script>
+

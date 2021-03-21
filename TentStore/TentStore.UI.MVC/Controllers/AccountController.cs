@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using TentStore.DATA.EF;
 
 namespace TentStore.UI.MVC.Controllers
 {
@@ -153,6 +154,17 @@ namespace TentStore.UI.MVC.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    UserDetail newUserDetail = new UserDetail();
+                    newUserDetail.UserId = user.Id;
+                    newUserDetail.FirstName = model.FirstName;
+                    newUserDetail.LastName = model.LastName;
+
+                    StoreFrontEntities db = new StoreFrontEntities();
+                    db.UserDetails.Add(newUserDetail);
+
+                    db.SaveChanges();
+
+
                     UserManager.AddToRole(user.Id, "Customer");
                     return RedirectToAction("Index", "Home");
                 }

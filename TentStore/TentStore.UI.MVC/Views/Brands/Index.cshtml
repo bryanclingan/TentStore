@@ -6,9 +6,16 @@
 
 <h2>@ViewBag.Title</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<div class="row">
+    <div class="col-md-10">
+        <button id="toggleBrandCreate" class="btn btn-primary">
+            Create Brand
+        </button>
+        <div id="BrandCreate">
+            @Html.Partial("AjaxCreate",new TentStore.DATA.EF.Brand())
+        </div>
+    </div>
+</div>
 <table class="table">
     <tr>
         <th>
@@ -17,17 +24,139 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.BrandName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.BrandID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.BrandID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.BrandID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BrandName)
+            </td>
+            <td>
+                <a href="" class="EditLink" id="@item.BrandID">Edit</a>
+                <a href="" class="DetailsLink" id="@item.BrandID">Details</a>
+                @Ajax.ActionLink("Delete", "AjaxDelete", "Brands", new { id = item.BrandID }, new AjaxOptions
+           {
+               HttpMethod = "POST",
+               Confirm = "Are you sure you want to delete " + item.BrandName + " from publishers?",
+               OnSuccess = "deleteConfirmed"
+                })
+            </td>
+        </tr>
+    }
 
 </table>
+<div id="BrandDetails">
+
+</div>
+<div id="BrandEdit">
+
+</div>
+
+@section scripts{
+    <script>
+        
+        function deleteConfirmed(response) {
+            
+            var rowId = "#Brand-" + response.id;
+            $("#BrandsTable").find(rowId).remove();
+
+            
+            $("#MessageContent").html("<div class='alert alert-success'>" + response.message + "</div>");
+        }
+
+        
+        $("a.DetailsLink").click(function (e) {
+            e.preventDefault();
+            $("#BrandDetails").data("bId", $(this).attr("id")).dialog({
+                
+                modal: true,
+                open: function () {
+                    var data = $(this).data("bId");
+                    $(this).load("/Brands/BrandDetails/" + data)
+                },
+                width: 400,
+                height: 200,
+                title: "Brand Details",
+                resizable: false
+            });
+        });
+
+        
+        $("#BrandCreate").hide();
+        $("#toggleBrandCreate").click(function () {
+            $("#BrandCreate").toggle();
+            
+            if ($("#BrandCreate").is(":visible")) {
+                $("#toggleBrandCreate").html("Cancel")
+                $("#toggleBrandCreate").attr("class", "btn btn-danger")
+
+            }
+            else {
+                $("#toggleBrandCreate").html("Create Brand")
+                $("#toggleBrandCreate").attr("class", "btn btn-primary")
+            }
+        });
+
+        
+        $("#BrandCreateForm").submit(function (e) {
+            
+            var formData = $(this).serializeArray();
+            
+            e.preventDefault();
+            
+            $("#MessageContent").html("<div class = 'alert alert-info'>Please wait....</div>");
+            
+            $.ajax({
+                
+                url:"@Url.Action("AjaxCreate","Brands")",
+                
+                type: "POST",
+                
+                data: formData,
+                
+                dataType: "json",
+                
+                success: function (data) {
+                    
+                    $("#MessageContent").html("<div class='alert alert-success'>Your record was added!</div>");
+                    $("#BrandCreateForm")[0].reset();
+                   
+                    $(function () {
+                        var row = "<tr><td>" + data.BrandName + "<td>Refresh to view Links</td></tr>";
+                        $("#BrandsTable").append(row);
+                        
+                        $("#BrandCreate").toggle();
+                        $("#toggleBrandCreate").html("Create Brand")
+                        $("#toggleBrandCreate").attr("class", "btn btn-primary")
+
+                    });
+                },
+                
+                error: function (e) {
+                    $("#MessageContent").html("<div class='alert alert-warning'>There was an error. Please try again or contact the site administrator.</div>");
+                }
+
+            });
+        });
+
+       
+
+        $("a.EditLink").click(function (e) {
+            e.preventDefault();
+            $("#BrandEdit").data("pId", $(this).attr("id")).dialog({
+                
+                modal: true,
+                open: function () {
+                    var data = $(this).data("pId");
+                    $(this).load("/Brands/BrandEdit/"+data)
+                },
+                width: 600,
+                height: 440,
+                title: "Edit Brand",
+                resizable: true
+            });
+        });
+
+        
+    </script>
+
+}

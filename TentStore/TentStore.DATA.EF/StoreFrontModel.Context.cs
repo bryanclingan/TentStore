@@ -36,5 +36,6 @@ namespace TentStore.DATA.EF
         public virtual DbSet<StatusID> StatusIDs { get; set; }
         public virtual DbSet<TentMaterial> TentMaterials { get; set; }
         public virtual DbSet<Tent> Tents { get; set; }
+        public virtual DbSet<UserDetail> UserDetails { get; set; }
     }
 }
